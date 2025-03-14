@@ -1,5 +1,7 @@
 package com.catalisa.taxes_api.model.entity;
 
+import com.catalisa.taxes_api.model.enums.RoleUser;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -25,6 +27,6 @@ public class Role {
     private Long id;
     
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private RoleUser role;
 
 }
