@@ -1,8 +1,7 @@
-package com.catalisa.taxes_api.model.entity;
+package com.catalisa.taxes_api.model;
 
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -35,7 +34,7 @@ public class User {
 
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id"))

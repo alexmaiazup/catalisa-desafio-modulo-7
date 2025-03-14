@@ -1,6 +1,6 @@
-package com.catalisa.taxes_api.model.entity;
+package com.catalisa.taxes_api.model;
 
-import com.catalisa.taxes_api.model.enums.RoleUser;
+import com.catalisa.taxes_api.dtos.RoleUser;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
