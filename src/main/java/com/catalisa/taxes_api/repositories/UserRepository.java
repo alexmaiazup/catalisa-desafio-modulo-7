@@ -1,4 +1,4 @@
-package com.catalisa.taxes_api.repository;
+package com.catalisa.taxes_api.repositories;
 
 import java.util.Optional;
 
@@ -8,4 +8,6 @@ import com.catalisa.taxes_api.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByUsername(String username);
+
+    boolean existsByUsername(String username);
 }
