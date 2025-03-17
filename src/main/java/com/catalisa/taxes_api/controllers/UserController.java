@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/user/register")
 public class UserController {
     
     @Autowired
