@@ -17,13 +17,13 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/user/login")
 public class AuthenticationController {
 
     @Autowired
     private AuthenticationService authService;
 
-    @PostMapping("/user/login")
+    @PostMapping
     public ResponseEntity<AuthResponseDto> login(@RequestBody LoginDto loginDto){
 
         String token = authService.login(loginDto);

@@ -8,7 +8,6 @@ public class TaxesApiApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TaxesApiApplication.class, args);
-		System.out.println("Hello world!");
 	}
 
 }
