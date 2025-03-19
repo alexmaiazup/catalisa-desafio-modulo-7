@@ -21,7 +21,7 @@ public class TaxTypeController {
 
     private TaxTypeService taxTypeService;
 
-    @PostMapping("path")
+    @PostMapping
     public void registerTaxType(@RequestBody TaxRegisterDto taxRegisterDto) throws NameAlreadyBoundException {
         
         taxTypeService.registerTaxType(taxRegisterDto);
