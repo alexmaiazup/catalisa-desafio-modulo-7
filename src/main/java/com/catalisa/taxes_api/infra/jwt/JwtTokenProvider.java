@@ -36,6 +36,10 @@ public class JwtTokenProvider {
         return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
     }
 
+    public Key getSigningKey() {
+        return key();
+    }
+
     // extract username from JWT token
     public String getUsername(String token){
 
