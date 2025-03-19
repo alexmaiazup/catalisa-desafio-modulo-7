@@ -36,6 +36,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String token = getTokenFromRequest(request);
 
+        String path = request.getRequestURI();
+
+        if(path.equals("/user/login")){
+            filterChain.doFilter(request, response);
+        }
+
         if(StringUtils.hasText(token) && jwtTokenProvider.validateToken(token)){
             String username = jwtTokenProvider.getUsername(token);
 

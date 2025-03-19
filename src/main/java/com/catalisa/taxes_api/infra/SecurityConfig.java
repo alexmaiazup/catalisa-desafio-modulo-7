@@ -8,7 +8,6 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -25,8 +24,6 @@ import lombok.AllArgsConstructor;
 @EnableMethodSecurity
 @AllArgsConstructor
 public class SecurityConfig {
-
-    private UserDetailsService userDetailsService;
 
     private JwtAuthenticationFilter jwtAuthenticationFilter;
 
@@ -45,6 +42,8 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests((authorize) -> {
                     authorize.requestMatchers(HttpMethod.POST, "/user/register", "/user/login").permitAll();
+                    authorize.requestMatchers(HttpMethod.POST, "/tipos").hasRole("ADMIN");
+                    authorize.requestMatchers(HttpMethod.GET, "/tipos").hasAnyRole("DEFAULT", "ADMIN"); 
                     authorize.anyRequest().authenticated();
                 }).httpBasic(Customizer.withDefaults());
 
