@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/user/register")
 public class UserController {
     
     @Autowired
     private UserService userService;
 
-    @PostMapping("/register")
+    @PostMapping
     public void registerUser(@RequestBody UserRegisterDto userRegisterDto) {
         userService.registerUser(userRegisterDto);
     }
