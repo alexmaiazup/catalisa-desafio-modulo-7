@@ -29,8 +29,8 @@ public class UserController {
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<String> handleRuntimeException(RuntimeException ex) {
-        if ("Invalid credentials".equals(ex.getMessage())) {
-            return new ResponseEntity<>("Acesso negado. Verifique usuário e senha.", HttpStatus.UNAUTHORIZED);
+        if ("Já existe um usuário com este nome".equals(ex.getMessage())) {
+            return new ResponseEntity<>("Já existe um usuário com este nome.", HttpStatus.UNAUTHORIZED);
         }
         return new ResponseEntity<>("Unexpected error", HttpStatus.INTERNAL_SERVER_ERROR);
     }
