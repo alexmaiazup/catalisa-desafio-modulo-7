@@ -5,8 +5,11 @@ import com.catalisa.taxes_api.controllers.TaxTypeController;
 import com.catalisa.taxes_api.dtos.TaxRegisterDto;
 import com.catalisa.taxes_api.model.Tax;
 import com.catalisa.taxes_api.services.TaxTypeService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
@@ -16,9 +19,11 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import static org.mockito.Mockito.when;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -28,6 +33,9 @@ public class TaxTypeControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @MockitoBean
     private TaxTypeService taxTypeService;
@@ -110,5 +118,43 @@ public class TaxTypeControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
                 .andExpect(content().string("Tipo de imposto com ID 999 não encontrado."));
+    }
+
+    @Test
+    void testUpdateTaxById() throws Exception {
+
+        Long taxId = 1L;
+        Map<String, Object> updates = Map.of("nome", "Novo Nome", "descricao", "Nova Descrição");
+        Tax updatedTax = new Tax();
+        updatedTax.setId(taxId);
+        updatedTax.setNome("Novo Nome");
+        updatedTax.setDescricao("Nova Descrição");
+
+        Mockito.when(taxTypeService.updateTaxById(eq(taxId), Mockito.<Map<String, Object>>any()))
+       .thenReturn(updatedTax);
+
+        mockMvc.perform(put("/tipos/{id}", taxId)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(updates)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(taxId))
+                .andExpect(jsonPath("$.nome").value("Novo Nome"))
+                .andExpect(jsonPath("$.descricao").value("Nova Descrição"));
+    }
+
+    @Test
+    void testDeleteTaxTypeById() throws Exception {
+
+        Long taxId = 1L;
+        Tax deletedTax = new Tax();
+        deletedTax.setId(taxId);
+        deletedTax.setNome("Imposto Deletado");
+
+        Mockito.when(taxTypeService.deleteTaxTypeById(taxId)).thenReturn(deletedTax);
+
+        mockMvc.perform(delete("/tipos/{id}", taxId))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(taxId))
+                .andExpect(jsonPath("$.nome").value("Imposto Deletado"));
     }
 }

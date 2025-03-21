@@ -8,16 +8,20 @@ import com.catalisa.taxes_api.model.Tax;
 import com.catalisa.taxes_api.services.TaxTypeService;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.NameAlreadyBoundException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,6 +50,18 @@ public class TaxTypeController {
     @GetMapping("/{id}")
     public ResponseEntity<Tax> getTaxById(@PathVariable Long id) {
         Tax tax = taxTypeService.getTaxById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(tax);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Tax> updateTaxById(@PathVariable Long id,@Valid @RequestBody Map<String, Object> taxTypeUpdateDto) {
+        Tax tax = taxTypeService.updateTaxById(id, taxTypeUpdateDto);
+        return ResponseEntity.status(HttpStatus.OK).body(tax);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Tax> deleteTaxTypeById(@PathVariable Long id) {
+        Tax tax = taxTypeService.deleteTaxTypeById(id);
         return ResponseEntity.status(HttpStatus.OK).body(tax);
     }
 
