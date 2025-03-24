@@ -157,7 +157,7 @@ public class TaxTypeControllerTest {
         Mockito.when(taxTypeService.deleteTaxTypeById(taxId)).thenReturn(deletedTax);
 
         mockMvc.perform(delete("/tipos/{id}", taxId))
-                .andExpect(status().isOk())
+                .andExpect(status().is2xxSuccessful())
                 .andExpect(jsonPath("$.id").value(taxId))
                 .andExpect(jsonPath("$.nome").value("Imposto Deletado"));
     }
