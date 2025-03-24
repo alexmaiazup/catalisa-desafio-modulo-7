@@ -22,8 +22,6 @@
 
 1. Execute os testes unitários: `mvn test`
 
-2. Execute os testes de integração: `mvn integration-test`
-
 ## Gerando Tokens JWT
 
 **A API utiliza o Swagger para documentação. Para acessar o Swagger e visualizar todas as rotas e Request Body necessários, basta rodar a aplicação e acessar a rota `/swagger-ui.html`.**
