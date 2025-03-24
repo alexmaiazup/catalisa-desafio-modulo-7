@@ -31,7 +31,7 @@
 
 2. Faça login via o endpoint `/user/login` para obter o token JWT.
 
-3. Coloque o token JWT no header das requisições subsequentes como `Bearer Token`.
+3. Coloque o token JWT no header das requisições como `Bearer Token`.
 
 ### Endpoints
 
