@@ -43,6 +43,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) -> {
                     authorize.requestMatchers(HttpMethod.POST, "/user/register", "/user/login").permitAll();
                     authorize.requestMatchers(HttpMethod.POST, "/tipos").hasRole("ADMIN");
+                    authorize.requestMatchers(HttpMethod.POST, "/calculo").hasRole("ADMIN");
                     authorize.requestMatchers(HttpMethod.PUT, "/tipos").hasRole("ADMIN");
                     authorize.requestMatchers(HttpMethod.GET, "/tipos").hasAnyRole("DEFAULT", "ADMIN");
                     authorize.requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**").permitAll();

@@ -32,7 +32,7 @@ class TaxTypeServiceTest {
     }
 
     @Test
-    void testRegisterTaxType_Success() throws NameAlreadyBoundException {
+    void shouldRegisterTaxType() throws NameAlreadyBoundException {
         TaxRegisterDto taxRegisterDto = new TaxRegisterDto();
         taxRegisterDto.setNome("Imposto Teste");
         taxRegisterDto.setDescricao("Descrição Teste");
@@ -59,7 +59,7 @@ class TaxTypeServiceTest {
     }
 
     @Test
-    void testRegisterTaxType_NameAlreadyExists() {
+    void shouldThrowNameAlreadyBoundException() {
         TaxRegisterDto taxRegisterDto = new TaxRegisterDto();
         taxRegisterDto.setNome("Imposto Teste");
 
@@ -75,7 +75,7 @@ class TaxTypeServiceTest {
     }
 
     @Test
-    void testListAllTaxTypes_Success() {
+    void shouldListAllTaxTypes() {
         Tax tax1 = new Tax();
         tax1.setId(1L);
         tax1.setNome("Imposto 1");
@@ -96,7 +96,7 @@ class TaxTypeServiceTest {
     }
 
     @Test
-    void testGetTaxById_Success() {
+    void shouldGetTaxById() {
         Long taxId = 1L;
 
         Tax tax = new Tax();
@@ -114,7 +114,7 @@ class TaxTypeServiceTest {
     }
 
     @Test
-    void testGetTaxById_EntityNotFound() {
+    void shouldThrowEntityNotFoundException() {
         Long taxId = 1L;
 
         when(taxRepository.findById(taxId)).thenReturn(Optional.empty());
@@ -128,7 +128,7 @@ class TaxTypeServiceTest {
     }
 
     @Test
-    void testUpdateTaxById_Success() {
+    void shouldUpdateTaxById() {
         Long taxId = 1L;
         Map<String, Object> updates = Map.of("nome", "Novo Nome", "descricao", "Nova Descrição");
 
@@ -150,7 +150,7 @@ class TaxTypeServiceTest {
     }
 
     @Test
-    void testDeleteTaxTypeById_Success() {
+    void shouldDeleteTaxById() {
         Long taxId = 1L;
 
         Tax existingTax = new Tax();

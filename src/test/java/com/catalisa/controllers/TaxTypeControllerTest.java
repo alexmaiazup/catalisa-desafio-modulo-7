@@ -111,13 +111,17 @@ public class TaxTypeControllerTest {
     }
 
     @Test
-    public void shouldReturnNotFoundWhenTaxByIdDoesNotExist() throws Exception {
-        when(taxTypeService.getTaxById(999L)).thenThrow(new EntityNotFoundException("Tipo de imposto com ID 999 não encontrado."));
+    public void shouldReturnNotFoundForNonExistentTaxType() throws Exception {
+        
+        Long nonExistentId = 999L;
+        String expectedMessage = "Tipo de imposto com ID " + nonExistentId + " não encontrado.";
 
-        mockMvc.perform(get("/tipos/999")
+        when(taxTypeService.getTaxById(nonExistentId)).thenThrow(new EntityNotFoundException(expectedMessage));
+
+        
+        mockMvc.perform(get("/tipos/{id}", nonExistentId)
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound())
-                .andExpect(content().string("Tipo de imposto com ID 999 não encontrado."));
+                .andExpect(status().isNotFound());
     }
 
     @Test

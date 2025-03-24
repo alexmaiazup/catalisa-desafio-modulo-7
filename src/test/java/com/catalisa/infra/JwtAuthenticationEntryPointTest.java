@@ -37,10 +37,10 @@ class JwtAuthenticationEntryPointTest {
 
     @Test
     void testCommence_ShouldSendUnauthorizedError() throws IOException, ServletException {
-        // Act
+        
         jwtAuthenticationEntryPoint.commence(request, response, authException);
 
-        // Assert
+        
         verify(response, times(1)).sendError(HttpServletResponse.SC_UNAUTHORIZED, "Acesso negado. Você precisa estar autenticado para acessar este recurso.");
     }
 }

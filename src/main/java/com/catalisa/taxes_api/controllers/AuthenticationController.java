@@ -17,7 +17,7 @@ import com.catalisa.taxes_api.services.AuthenticationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 
-@Tag(name = "Autenticação", description = "Endpoints para autenticação de usuários")
+@Tag(name = "Login", description = "Endpoints para autenticação de usuários")
 @AllArgsConstructor
 @RestController
 @RequestMapping("/user/login")

@@ -7,6 +7,7 @@ import com.catalisa.taxes_api.dtos.TaxRegisterDto;
 import com.catalisa.taxes_api.model.Tax;
 import com.catalisa.taxes_api.services.TaxTypeService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -27,7 +28,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 
-
+@Tag(name = "Tipos de Impostos", description = "Endpoints para gerenciar tipos de impostos")
 @AllArgsConstructor
 @RestController
 @RequestMapping("/tipos")
@@ -66,8 +67,13 @@ public class TaxTypeController {
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<String> handleEntityNotFoundException(EntityNotFoundException ex) {
+    public ResponseEntity <String> handleEntityNotFoundException(EntityNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException ex) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
     }
     
 }

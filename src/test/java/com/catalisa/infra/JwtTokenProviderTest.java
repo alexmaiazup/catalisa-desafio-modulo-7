@@ -84,7 +84,7 @@ class JwtTokenProviderTest {
             public String generateToken(Authentication authentication) {
                 String username = authentication.getName();
                 Date currentDate = new Date();
-                Date expireDate = new Date(currentDate.getTime() + 1000); // 1 second expiration
+                Date expireDate = new Date(currentDate.getTime() + 1000);
 
                 return Jwts.builder()
                         .subject(username)

@@ -14,7 +14,7 @@ public class TestSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests((requests) -> requests
-                        .anyRequest().permitAll()); // Permite todas as requisições sem autenticação
+                        .anyRequest().permitAll());
         return http.build();
     }
 }

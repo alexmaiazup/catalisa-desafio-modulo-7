@@ -37,7 +37,7 @@ class AuthenticationServiceTest {
     }
 
     @Test
-    void testLogin_Success() {
+    void shouldLoginUser() {
 
         LoginDto loginDto = new LoginDto();
         loginDto.setUsername("testuser");
@@ -58,7 +58,7 @@ class AuthenticationServiceTest {
     }
 
     @Test
-    void testLogin_InvalidCredentials() {
+    void shouldThrowBadCredentialsException() {
 
         LoginDto loginDto = new LoginDto();
         loginDto.setUsername("invaliduser");
@@ -74,7 +74,7 @@ class AuthenticationServiceTest {
     }
 
     @Test
-    void testLogin_NullUsernameOrPassword() {
+    void shouldThrowIllegalArgumentException() {
 
         LoginDto loginDto = new LoginDto();
         loginDto.setUsername(null);

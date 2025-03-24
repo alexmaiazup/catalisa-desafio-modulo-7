@@ -9,6 +9,7 @@ import com.catalisa.taxes_api.model.Role;
 import com.catalisa.taxes_api.model.User;
 import com.catalisa.taxes_api.repositories.RoleRepository;
 import com.catalisa.taxes_api.repositories.UserRepository;
+import com.catalisa.taxes_api.utils.ResourceAlreadyExistsException;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -23,8 +24,8 @@ public class UserService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public void registerUser(UserRegisterDto registerUserDto){
-        if (userRepository.existsByUsername(registerUserDto.getUsername())){
-            throw new RuntimeException("Já existe um usuário com este nome.");
+        if (userRepository.existsByUsername(registerUserDto.getUsername())) {
+            throw new ResourceAlreadyExistsException("Já existe um usuário com este nome.");
         }
 
         User user = new User();

@@ -40,7 +40,6 @@ public class JwtTokenProvider {
         return key();
     }
 
-    // extract username from JWT token
     public String getUsername(String token){
 
         return Jwts.parser()
@@ -51,7 +50,6 @@ public class JwtTokenProvider {
                 .getSubject();
     }
 
-    // validate JWT token
     public boolean validateToken(String token){
         Jwts.parser()
                 .verifyWith((SecretKey) key())

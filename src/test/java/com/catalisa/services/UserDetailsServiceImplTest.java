@@ -34,8 +34,8 @@ class UserDetailsServiceImplTest {
     }
 
     @Test
-    void testLoadUserByUsername_Success() {
-        // Arrange
+    void shouldLoadUserByUsername() {
+        
         User mockUser = new User();
         mockUser.setUsername("testuser");
         mockUser.setPassword("testpassword");
@@ -45,10 +45,10 @@ class UserDetailsServiceImplTest {
 
         when(userRepository.findByUsername("testuser")).thenReturn(Optional.of(mockUser));
 
-        // Act
+        
         UserDetails userDetails = userDetailsService.loadUserByUsername("testuser");
 
-        // Assert
+        
         assertNotNull(userDetails);
         assertEquals("testuser", userDetails.getUsername());
         assertEquals("testpassword", userDetails.getPassword());
@@ -59,11 +59,11 @@ class UserDetailsServiceImplTest {
     }
 
     @Test
-    void testLoadUserByUsername_UserNotFound() {
-        // Arrange
+    void shouldThrowUsernameNotFoundException() {
+        
         when(userRepository.findByUsername("nonexistentuser")).thenReturn(Optional.empty());
 
-        // Act & Assert
+        
         UsernameNotFoundException exception = assertThrows(UsernameNotFoundException.class, () -> {
             userDetailsService.loadUserByUsername("nonexistentuser");
         });
@@ -73,19 +73,19 @@ class UserDetailsServiceImplTest {
     }
 
     @Test
-    void testLoadUserByUsername_UserWithoutRoles() {
-        // Arrange
+    void shouldLoadUserByUsernameWithoutRoles() {
+        
         User mockUser = new User();
         mockUser.setUsername("testuser");
         mockUser.setPassword("testpassword");
-        mockUser.setRoles(Set.of()); // Sem roles
+        mockUser.setRoles(Set.of());
 
         when(userRepository.findByUsername("testuser")).thenReturn(Optional.of(mockUser));
 
-        // Act
+        
         UserDetails userDetails = userDetailsService.loadUserByUsername("testuser");
 
-        // Assert
+        
         assertNotNull(userDetails);
         assertEquals("testuser", userDetails.getUsername());
         assertEquals("testpassword", userDetails.getPassword());
