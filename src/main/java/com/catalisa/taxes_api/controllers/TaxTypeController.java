@@ -63,7 +63,7 @@ public class TaxTypeController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Tax> deleteTaxTypeById(@PathVariable Long id) {
         Tax tax = taxTypeService.deleteTaxTypeById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(tax);
+        return ResponseEntity.status(204).body(tax);
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
