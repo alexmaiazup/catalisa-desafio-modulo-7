@@ -7,12 +7,12 @@
 2. Instale as dependências: `mvn clean install`
 
 3. Configure as variáveis de ambiente em um arquivo `.env`:
-	* `export DB_HOST=` (endereço do servidor de banco de dados)
-	* `export DB_PORT=` (porta do servidor de banco de dados)
-	* `export DB_NAME=` (nome do banco de dados)
-	* `export DB_USERNAME=` (usuário do banco de dados)
-	* `export DB_PASSWORD=` (senha do banco de dados)
-	* `export SERVER_PORT=` (porta do servidor da API)
+	* `DB_HOST=` (endereço do servidor de banco de dados)
+	* `DB_PORT=` (porta do servidor de banco de dados)
+	* `DB_NAME=` (nome do banco de dados)
+	* `DB_USERNAME=` (usuário do banco de dados)
+	* `DB_PASSWORD=` (senha do banco de dados)
+	* `SERVER_PORT=` (porta do servidor da API)
 
 4. Execute a API: `mvn spring-boot:run`
 
