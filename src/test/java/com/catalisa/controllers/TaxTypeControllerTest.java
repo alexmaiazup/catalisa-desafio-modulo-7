@@ -41,7 +41,7 @@ public class TaxTypeControllerTest {
     private TaxTypeService taxTypeService;
 
     @Test
-    public void shouldListAllTaxTypes() throws Exception {
+    public void shouldReturnAllTaxTypesWhenListIsSuccessful() throws Exception {
         Tax tax1 = new Tax();
         tax1.setId(1L);
         tax1.setNome("ICMS");
@@ -72,7 +72,7 @@ public class TaxTypeControllerTest {
     }
 
     @Test
-    public void shouldRegisterTaxType() throws Exception {
+    public void shouldRegisterTaxTypeWhenDataIsValid() throws Exception {
         Tax tax = new Tax();
         tax.setId(1L);
         tax.setNome("ICMS");
@@ -92,7 +92,7 @@ public class TaxTypeControllerTest {
     }
 
     @Test
-    public void shouldGetTaxById() throws Exception {
+    public void shouldReturnTaxTypeByIdWhenExists() throws Exception {
         Tax tax = new Tax();
         tax.setId(1L);
         tax.setNome("ICMS");
@@ -111,22 +111,19 @@ public class TaxTypeControllerTest {
     }
 
     @Test
-    public void shouldReturnNotFoundForNonExistentTaxType() throws Exception {
-        
+    public void shouldReturnNotFoundWhenTaxTypeDoesNotExist() throws Exception {
         Long nonExistentId = 999L;
         String expectedMessage = "Tipo de imposto com ID " + nonExistentId + " não encontrado.";
 
         when(taxTypeService.getTaxById(nonExistentId)).thenThrow(new EntityNotFoundException(expectedMessage));
 
-        
         mockMvc.perform(get("/tipos/{id}", nonExistentId)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    void testUpdateTaxById() throws Exception {
-
+    public void shouldUpdateTaxTypeByIdWhenDataIsValid() throws Exception {
         Long taxId = 1L;
         Map<String, Object> updates = Map.of("nome", "Novo Nome", "descricao", "Nova Descrição");
         Tax updatedTax = new Tax();
@@ -135,7 +132,7 @@ public class TaxTypeControllerTest {
         updatedTax.setDescricao("Nova Descrição");
 
         Mockito.when(taxTypeService.updateTaxById(eq(taxId), Mockito.<Map<String, Object>>any()))
-       .thenReturn(updatedTax);
+                .thenReturn(updatedTax);
 
         mockMvc.perform(put("/tipos/{id}", taxId)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -147,8 +144,7 @@ public class TaxTypeControllerTest {
     }
 
     @Test
-    void testDeleteTaxTypeById() throws Exception {
-
+    public void shouldDeleteTaxTypeByIdWhenExists() throws Exception {
         Long taxId = 1L;
         Tax deletedTax = new Tax();
         deletedTax.setId(taxId);
@@ -160,5 +156,13 @@ public class TaxTypeControllerTest {
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(jsonPath("$.id").value(taxId))
                 .andExpect(jsonPath("$.nome").value("Imposto Deletado"));
+    }
+
+    @Test
+    public void shouldReturnBadRequestWhenRegisteringTaxWithInvalidData() throws Exception {
+        mockMvc.perform(post("/tipos")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"nome\": \"\", \"descricao\": \"\", \"aliquota\": -5.0}"))
+                .andExpect(status().isBadRequest());
     }
 }

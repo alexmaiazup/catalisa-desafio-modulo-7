@@ -37,7 +37,7 @@ public class TaxTypeController {
     private TaxTypeService taxTypeService;
 
     @PostMapping
-    public ResponseEntity<Tax> registerTaxType(@RequestBody TaxRegisterDto taxRegisterDto) throws NameAlreadyBoundException {
+    public ResponseEntity<Tax> registerTaxType(@Valid @RequestBody TaxRegisterDto taxRegisterDto) throws NameAlreadyBoundException {
         Tax createdTaxType = taxTypeService.registerTaxType(taxRegisterDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdTaxType);
     }
